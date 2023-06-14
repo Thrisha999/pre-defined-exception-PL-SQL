@@ -1,0 +1,26 @@
+--QUERY: To implement pre defined exception
+
+--PL/SQL Block:
+declare
+	id Student2.SID%type;
+	name Student2.Sname%type;
+	num Student2.SID%type;
+begin
+	num:=&num;
+	select SID,Sname into id,name
+	from Student2 where SID=num;
+	dbms_output.put_line('SID='||id||'Sname='||name);
+exception
+	when no_data_found then
+	 dbms_output.put_line('no such student exists');
+	when others then
+	 dbms_output.put_line('ERROR');
+end;
+/
+--output:
+Enter value for num: 110
+old   6:        num:=&num;
+new   6:        num:=110;
+no such student exists
+
+PL/SQL procedure successfully completed.
